@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<!-- EDIT: FAVICON -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon.png?v=3">
+<link rel="shortcut icon" type="image/png" href="favicon.png?v=3">
+<link rel="apple-touch-icon" href="favicon.png?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* EDIT: BRAND COLORS */
+  :root{
+    --navy-deep:#0A2540; --navy:#0B3A6B; --navy-700:#11315C;
+    --blue:#0579D7; --blue-light:#119BEF;
+    --purple:#4C1670; --magenta:#C6127D;
+    --ink:#16263B; --muted:#293340; --soft:#333C49;
+    --line:#E9ECF2; --bg:#FFFFFF; --bg-soft:#F6F8FC; --bg-tint:#F2F0FA;
+    --grad:linear-gradient(120deg,#4C1670 0%,#C6127D 100%);
+    --shadow:0 24px 60px -28px rgba(11,49,92,.34);
+    --shadow-sm:0 10px 30px -18px rgba(11,49,92,.28);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:Jost,sans-serif;font-weight:600;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:inherit}
+  @keyframes reveal{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  [data-reveal]{animation:reveal .9s cubic-bezier(.22,.61,.36,1) both;animation-timeline:view();animation-range:entry 2% cover 26%}
+  @media (max-width:860px){
+    [data-desktop-nav]{display:none !important}
+    [data-mobile-btn]{display:inline-flex !important}
+    [data-hero-pad]{padding-top:40px !important;padding-bottom:48px !important}
+    [data-sticky-cta]{display:flex !important}
+    [data-float]{display:none !important}
+  }
+  @media (min-width:861px){
+    [data-mobile-btn]{display:none !important}
+    [data-mobile-menu]{display:none !important}
+  }
+  [data-lift]{transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .25s ease}
+  @media (max-width:820px){ [data-flow]{grid-template-columns:1fr !important} [data-flow-arrow]{transform:rotate(90deg);justify-self:center} }
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="seal-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#119BEF"></stop><stop offset="100%" stop-color="#0463C9"></stop></linearGradient>
+    <linearGradient id="seal-ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4C1670"></stop><stop offset="100%" stop-color="#C6127D"></stop></linearGradient>
+  </defs>
+</svg>
+
+<div style="min-height:100vh;width:100%;overflow-x:hidden;background:var(--bg)">
+
+<!-- ============ HEADER ============ -->
+<header style="position:sticky;top:0;z-index:60;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)">
+  <div style="max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <!-- EDIT: LOGO -->
+    <a href="index.dc.html" style="display:inline-flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none"><img src="images/resolved-logo.png" alt="Resolved" style="display:block;height:50px;width:auto"><span style="font-family:Jost,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#0A1A2E;white-space:nowrap">Powered by <span style="color:#C6127D">Real Deal Accounting</span></span></a>
+    <nav data-desktop-nav style="display:flex;align-items:center;gap:30px">
+      <a href="index.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:14.5px">Home</a>
+      <a href="offer-in-compromise.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:14.5px">OIC</a>
+      <a href="services.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:14.5px">Services</a>
+      <a href="faq.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:14.5px">FAQ</a>
+      <a href="contact.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:14.5px">Contact</a>
+      <!-- EDIT: CTA LINK -->
+      <a href="free-evaluation.dc.html" style="text-decoration:none;background:var(--grad);color:#fff;font-size:16px;font-weight:700;letter-spacing:.01em;padding:14px 32px;border-radius:999px;box-shadow:0 10px 24px -12px rgba(198,18,125,.7)">Free Review</a>
+    </nav>
+    <button data-mobile-btn onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:42px;height:42px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--navy);cursor:pointer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
+    </button>
+  </div>
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-mobile-menu style="border-top:1px solid var(--line);background:#fff;padding:14px 24px 22px;display:flex;flex-direction:column;gap:4px">
+      <a href="index.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:16px;padding:11px 0;border-bottom:1px solid var(--line)">Home</a>
+      <a href="offer-in-compromise.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:16px;padding:11px 0;border-bottom:1px solid var(--line)">Offer in Compromise</a>
+      <a href="services.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:16px;padding:11px 0;border-bottom:1px solid var(--line)">Services</a>
+      <a href="faq.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:16px;padding:11px 0;border-bottom:1px solid var(--line)">FAQ</a>
+      <a href="contact.dc.html" style="text-decoration:none;color:var(--navy-700);font-size:16px;padding:11px 0;border-bottom:1px solid var(--line)">Contact</a>
+      <a href="free-evaluation.dc.html" style="text-decoration:none;background:var(--grad);color:#fff;text-align:center;font-size:15px;font-weight:700;padding:13px;border-radius:999px;margin-top:12px">Free Review</a>
+    </div>
+  </sc-if>
+</header>
+
+<section data-hero-pad style="position:relative;max-width:var(--maxw);margin:0 auto;padding:84px 24px 24px"><div style="position:absolute;top:-60px;right:-30px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(198,18,125,.12),transparent 68%);pointer-events:none;z-index:0"></div><div style="position:absolute;bottom:-110px;left:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(5,121,215,.11),transparent 68%);pointer-events:none;z-index:0"></div><div style="position:relative;z-index:1;text-align:center;max-width:640px;margin:0 auto"><span style="display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);font-weight:700"><span style="width:26px;height:1px;background:var(--magenta)"></span>FAQ</span><h1 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(38px,4.8vw,56px);line-height:1.06;margin:20px 0 0;color:var(--ink)">Your questions, answered simply.</h1></div></section><section style="max-width:780px;margin:0 auto;padding:40px 24px 96px"><div data-reveal style="display:flex;flex-direction:column;gap:12px"><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">Am I in trouble?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">If you've received IRS notices, it's serious — but it's manageable. The first step is a clear review.</p></details><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">Can IRS debt be reduced?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">Sometimes. Programs like an Offer in Compromise may reduce what you owe, depending on IRS rules.</p></details><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">Do I qualify for an Offer in Compromise?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">It depends on your income, assets, and expenses — exactly what the free review tells you.</p></details><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">Will the IRS stop collections?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">In many cases, taking action can address active collection. We'll explain what applies to you.</p></details><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">What if I have unfiled returns?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">Common. We help you get current — it's often the first step.</p></details><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">Is the consultation private?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">Yes. Your information stays confidential.</p></details><details style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:20px;font-weight:700;color:var(--ink)">What happens after I submit the form?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:18px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">A tax specialist reviews your situation and reaches out — privately, with no obligation.</p></details></div></section>
+<section style="position:relative;overflow:hidden;background:var(--navy-deep)"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(198,18,125,.28),transparent 60%);pointer-events:none"></div><div style="position:absolute;top:20%;left:12%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(5,121,215,.26),transparent 64%);pointer-events:none"></div>
+  <div style="position:relative;max-width:760px;margin:0 auto;padding:104px 24px;text-align:center">
+    <h2 data-reveal style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,52px);line-height:1.06;margin:0;color:#fff">Start with one private conversation.</h2>
+    <p data-reveal style="font-size:18px;color:#AEC0DC;margin:20px auto 0;font-weight:600;max-width:460px">No pressure. No judgment. Just a clear look at your options.</p>
+    <div data-reveal style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px"><a href="free-evaluation.dc.html" style="text-decoration:none;background:var(--grad);color:#fff;font-size:16px;font-weight:700;padding:16px 32px;border-radius:999px;box-shadow:0 18px 40px -16px rgba(198,18,125,.8)">Start free OIC review</a><!-- EDIT: PHONE --><a href="tel:+15612704850" style="text-decoration:none;color:#fff;font-size:16px;font-weight:700;padding:16px 30px;border-radius:999px;border:1px solid rgba(255,255,255,.25);display:inline-flex;align-items:center;gap:9px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>(561) 270-4850</a></div>
+  </div>
+</section>
+
+
+<!-- ============ CAN THE IRS TAKE MY... ============ -->
+<section style="max-width:820px;margin:0 auto;padding:100px 24px">
+  <div data-reveal style="text-align:center;max-width:640px;margin:0 auto 48px"><h2 style="font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(36px,4.4vw,52px);line-height:1.08;margin:0;color:var(--ink)">Can the IRS take my…</h2><p style="font-size:17px;color:var(--muted);margin:14px 0 0;font-weight:600">Honest answers to the questions that keep people up at night.</p></div>
+  <div data-reveal style="display:flex;flex-direction:column;gap:12px">
+    <details data-lift style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:19px;font-weight:700;color:var(--ink)">Can the IRS take my bank account?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:16.5px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">The IRS can levy a bank account — but usually only after several notices and a final notice. Acting early often prevents it.</p></details>
+    <details data-lift style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:19px;font-weight:700;color:var(--ink)">Can the IRS garnish my wages?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:16.5px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">Wages can be garnished after required notices are sent. In many cases, the right option can reduce or release a garnishment.</p></details>
+    <details data-lift style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:19px;font-weight:700;color:var(--ink)">Can the IRS take my tax refund?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:16.5px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">The IRS can apply a refund toward back taxes you owe. A review helps you understand how this affects your situation.</p></details>
+    <details data-lift style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:19px;font-weight:700;color:var(--ink)">Can the IRS levy my business income?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:16.5px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">In some cases the IRS can levy business receivables. Early action generally gives you more room to resolve it.</p></details>
+    <details data-lift style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:4px 24px;box-shadow:var(--shadow-sm)"><summary style="list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-size:19px;font-weight:700;color:var(--ink)">Can the IRS place a lien on my property?<span style="color:var(--magenta);font-size:22px;font-weight:600">+</span></summary><p style="font-size:16.5px;color:var(--muted);margin:0 0 20px;font-weight:600;line-height:1.6">The IRS can file a lien when a balance goes unpaid. Resolving the underlying debt is the path to releasing it.</p></details>
+  </div>
+</section>
+
+
+<!-- ============ FOOTER ============ -->
+<footer style="background:#071A30;color:#AEC0DC">
+  <div style="max-width:var(--maxw);margin:0 auto;padding:60px 24px 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px">
+    <div style="max-width:280px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;margin-bottom:16px"><img src="images/resolved-logo-white.png" alt="Resolved" style="display:block;height:48px;width:auto"><span style="font-family:Jost,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#fff;white-space:nowrap">Powered by <span style="color:#E66BB0">Real Deal Accounting</span></span></div>
+      <p style="font-size:15px;line-height:1.6;font-weight:600;margin:0">Powered by Real Deal Accounting. Calm, professional IRS tax resolution guidance.</p>
+    </div>
+    <div><h4 style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5E7595;margin:0 0 16px;font-weight:700">Explore</h4><div style="display:flex;flex-direction:column;gap:11px;font-size:15.5px;font-weight:600"><a href="offer-in-compromise.dc.html" style="text-decoration:none;color:#AEC0DC">Offer in Compromise</a><a href="services.dc.html" style="text-decoration:none;color:#AEC0DC">Services</a><a href="about.dc.html" style="text-decoration:none;color:#AEC0DC">About</a><a href="faq.dc.html" style="text-decoration:none;color:#AEC0DC">FAQ</a></div></div>
+    <div><h4 style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5E7595;margin:0 0 16px;font-weight:700">Get started</h4><div style="display:flex;flex-direction:column;gap:11px;font-size:15.5px;font-weight:600"><a href="free-evaluation.dc.html" style="text-decoration:none;color:#AEC0DC">Free OIC Review</a><a href="contact.dc.html" style="text-decoration:none;color:#AEC0DC">Contact</a></div></div>
+    <div><h4 style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#5E7595;margin:0 0 16px;font-weight:700">Contact</h4><div style="display:flex;flex-direction:column;gap:11px;font-size:15.5px;font-weight:600"><!-- EDIT: PHONE --><a href="tel:+15612704850" style="text-decoration:none;color:#AEC0DC">(561) 270-4850</a><!-- EDIT: EMAIL --><a href="/cdn-cgi/l/email-protection#c8aba4a1ada6bcbbadbabea1abadbb88baada9a4acada9a4a9ababa7bda6bca1a6afe6aba7a5" style="text-decoration:none;color:#AEC0DC"><span>clientservices</span>&#64;<span>realdealaccounting.com</span></a></div></div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.08)"><div style="max-width:var(--maxw);margin:0 auto;padding:22px 24px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:12px;color:#5E7595"><span>© 2026 Resolved. All rights reserved.</span><span>Informational only — not legal or tax advice. Results depend on your situation and IRS rules.</span></div></div>
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div data-sticky-cta style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:70;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px 16px;gap:10px">
+  <!-- EDIT: PHONE -->
+  <a href="tel:+15612704850" style="flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--navy)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+  <!-- EDIT: CTA LINK -->
+  <a href="free-evaluation.dc.html" style="flex:1;display:flex;align-items:center;justify-content:center;background:var(--grad);color:#fff;font-size:15.5px;font-weight:700;border-radius:14px;text-decoration:none">Start free review</a>
+</div>
+
+<!-- ============ FLOATING (desktop) ============ -->
+<!-- EDIT: CTA LINK -->
+<a href="free-evaluation.dc.html" data-float style="position:fixed;bottom:28px;right:28px;z-index:65;display:flex;align-items:center;gap:10px;background:var(--grad);color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:15px 22px;border-radius:999px;box-shadow:0 18px 40px -14px rgba(198,18,125,.75)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>Free review</a>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, submitted: false };
+  renderVals() {
+    return {
+      menuOpen: this.state.menuOpen,
+      submitted: this.state.submitted,
+      formVisible: !this.state.submitted,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); },
+    };
+  }
+}
+</script>
+</body>
+</html>
