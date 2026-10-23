@@ -226,7 +226,7 @@
 
   class ImageSlot extends HTMLElement {
     static get observedAttributes() {
-      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id', 'alt'];
     }
 
     constructor() {
@@ -574,6 +574,8 @@
     }
 
     _render() {
+      // Pass the slot's alt text through to the real image for search engines and screen readers.
+      this._img.alt = this.getAttribute('alt') || '';
       // Shape / mask. Presets use border-radius so the dashed ring can
       // follow the rounded outline; clip-path is only applied for an
       // explicit `mask` (the ring is hidden there since a rectangle
